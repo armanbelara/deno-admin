@@ -1,4 +1,10 @@
-import { serve } from "https://deno.land/std@0.120.0/http/server.ts";
+import { Application } from 'https://deno.land/x/oak@v10.1.0/mod.ts';
+import router from './routes.ts';
 
-console.log("http://localhost:8000/");
-serve((req) => new Response("Hello World\n"), { port: 8000 });
+const app = new Application();
+
+app.use(router.routes());
+app.use(router.allowedMethods());
+
+app.listen({ port: 8000 });
+console.log('Listening to port: 8000')
